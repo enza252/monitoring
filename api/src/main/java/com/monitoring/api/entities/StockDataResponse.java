@@ -1,4 +1,4 @@
-package com.forgerock.devops.challenge.ianensor.entities;
+package com.monitoring.api.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
-public class ChallengeResponse {
+public class StockDataResponse {
     private String symbol;
     private List<Double> data;
     private Double average;

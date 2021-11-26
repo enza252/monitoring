@@ -1,12 +1,12 @@
-package com.forgerock.devops.challenge.ianensor.services;
+package com.monitoring.api.services;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.response.StockUnit;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
-import com.forgerock.devops.challenge.ianensor.config.ChallengeConfig;
-import com.forgerock.devops.challenge.ianensor.entities.ChallengeResponse;
-import com.forgerock.devops.challenge.ianensor.services.interfaces.ChallengeServiceIF;
+import com.monitoring.api.config.ApiConfig;
+import com.monitoring.api.entities.StockDataResponse;
+import com.monitoring.api.services.interfaces.SymbolServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.crazzyghost.alphavantage.Config;
@@ -18,25 +18,25 @@ import java.util.stream.Collectors;
 import static java.lang.Long.parseLong;
 
 @Service
-public class ChallengeService implements ChallengeServiceIF {
+public class SymbolService implements SymbolServiceIF {
 
-    private final ChallengeConfig challengeConfig;
+    private final ApiConfig apiConfig;
     private long nDays;
 
     @Autowired
-    public ChallengeService(ChallengeConfig challengeConfig) {
-        this.challengeConfig = challengeConfig;
-        Config config = Config.builder().key(challengeConfig.getApiKey()).timeOut(10).build();
+    public SymbolService(ApiConfig apiConfig) {
+        this.apiConfig = apiConfig;
+        Config config = Config.builder().key(apiConfig.getApiKey()).timeOut(10).build();
         AlphaVantage.api().init(config);
-        nDays = parseLong(challengeConfig.getNDays());
+        nDays = parseLong(apiConfig.getNDays());
     }
 
     @Override
-    public ChallengeResponse calculateDataAndAverage() {
+    public StockDataResponse calculateDataAndAverage() {
         TimeSeriesResponse response = AlphaVantage.api()
                 .timeSeries()
                 .daily()
-                .forSymbol(challengeConfig.getSymbol())
+                .forSymbol(apiConfig.getSymbol())
                 .outputSize(OutputSize.FULL)
                 .fetchSync();
 
@@ -46,6 +46,6 @@ public class ChallengeService implements ChallengeServiceIF {
                 .collect(Collectors.toList());
 
         double average = lastNDays.stream().mapToDouble(d -> d).average().orElse(0.0);
-        return new ChallengeResponse(challengeConfig.getSymbol(), lastNDays, average);
+        return new StockDataResponse(apiConfig.getSymbol(), lastNDays, average);
     }
 }

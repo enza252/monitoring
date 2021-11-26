@@ -8,11 +8,11 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.forgerock.devops.challenge</groupId>
-	<artifactId>ianensor</artifactId>
+	<groupId>com.monitoring.api</groupId>
+	<artifactId>symbolapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ianensor</name>
-	<description>ForgeRock OpenBanking DevOps Cloud Challenge</description>
+	<name>symbolapi</name>
+	<description>Symbol API to track stock prices for the monitoring project</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
