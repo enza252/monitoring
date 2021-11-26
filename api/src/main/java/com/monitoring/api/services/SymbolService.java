@@ -21,31 +21,30 @@ import static java.lang.Long.parseLong;
 public class SymbolService implements SymbolServiceIF {
 
     private final ApiConfig apiConfig;
-    private long nDays;
 
     @Autowired
     public SymbolService(ApiConfig apiConfig) {
         this.apiConfig = apiConfig;
         Config config = Config.builder().key(apiConfig.getApiKey()).timeOut(10).build();
         AlphaVantage.api().init(config);
-        nDays = parseLong(apiConfig.getNDays());
     }
 
     @Override
-    public StockDataResponse calculateDataAndAverage() {
+    public StockDataResponse calculateDataAndAverage(String symbol, String nDays) {
+        long nDaysLong = parseLong(nDays);
         TimeSeriesResponse response = AlphaVantage.api()
                 .timeSeries()
                 .daily()
-                .forSymbol(apiConfig.getSymbol())
+                .forSymbol(symbol)
                 .outputSize(OutputSize.FULL)
                 .fetchSync();
 
         List<Double> lastNDays = response.getStockUnits().stream()
-                .limit(nDays)
+                .limit(nDaysLong)
                 .map(StockUnit::getClose)
                 .collect(Collectors.toList());
 
         double average = lastNDays.stream().mapToDouble(d -> d).average().orElse(0.0);
-        return new StockDataResponse(apiConfig.getSymbol(), lastNDays, average);
+        return new StockDataResponse(symbol, lastNDays, average);
     }
 }
