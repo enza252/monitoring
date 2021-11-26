@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "monitoring-api.fullname" . }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+data:
+  monitoring_CHALLENGE_SYMBOL: {{ .Values.symbol | quote }}
+  monitoring_CHALLENGE_NDAYS: {{ .Values.nDays | quote }}
