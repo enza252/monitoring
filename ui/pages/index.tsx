@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <div className={styles.card}>
-            <TextField required id="symbol-input-field" data-testid="symbol-input-field" label="symbol-input-field" value={symbol} onChange={onFieldChange}/>
+            <TextField required id="symbol-input-field" data-testid="symbol-input-field" inputProps={{ 'aria-label': 'symbol-input-field' }} value={symbol} onChange={onFieldChange}/>
           </div>
         </div>
       </main>
