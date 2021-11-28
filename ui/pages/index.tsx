@@ -1,13 +1,14 @@
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import { TextField } from '@material-ui/core'
+import type { NextPage } from "next"
+import { useState } from "react"
+import Head from "next/head"
+import { TextField, Button, Grid } from "@material-ui/core"
+
+import styles from "../styles/Home.module.css"
 
 const Home: NextPage = () => {
-  const [symbol, setSymbol] = useState("")
+  const [querySymbol, setQuerySymbol] = useState("")
   const onFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSymbol(event.target.value)
+    setQuerySymbol(event.target.value)
   }
   return (
     <div className={styles.container}>
@@ -28,7 +29,14 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <div className={styles.card}>
-            <TextField required id="symbol-input-field" data-testid="symbol-input-field" inputProps={{ 'aria-label': 'symbol-input-field' }} value={symbol} onChange={onFieldChange}/>
+            <Grid container spacing={2} direction="column" alignItems="center">
+              <Grid item xs={12}>
+               <TextField required id="query-symbol-input-field" data-testid="query-symbol-input-field" inputProps={{ "aria-label": "query-symbol-input-field" }} value={querySymbol} onChange={onFieldChange}/>
+              </Grid>
+              <Grid>
+                <Button aria-label="submit-query-button" variant="contained">Submit</Button>
+              </Grid>
+            </Grid>
           </div>
         </div>
       </main>
