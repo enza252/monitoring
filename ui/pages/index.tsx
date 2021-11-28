@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-
+import { TextField } from '@material-ui/core'
 
 const Home: NextPage = () => {
+  const [symbol, setSymbol] = useState("")
+  const onFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSymbol(event.target.value)
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -23,7 +28,7 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <div className={styles.card}>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <TextField required id="symbol-input-field" data-testid="symbol-input-field" value={symbol} onChange={onFieldChange}/>
           </div>
         </div>
       </main>
