@@ -1,14 +1,30 @@
 import type { NextPage } from "next"
+import type { SymbolData } from "../types"
+
 import { useState } from "react"
 import Head from "next/head"
-import { TextField, Button, Grid } from "@material-ui/core"
+import { TextField, Input, Button, Grid } from "@material-ui/core"
 
 import styles from "../styles/Home.module.css"
+import { fetchStockData } from "./api"
 
 const Home: NextPage = () => {
-  const [querySymbol, setQuerySymbol] = useState("")
-  const onFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [querySymbol, setQuerySymbol] = useState<string>("")
+  const [queryNDays, setQueryNDays] = useState<string>("")
+  const [symbolData, setSymbolData] = useState<SymbolData | undefined>(undefined)
+  const onSymbolFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuerySymbol(event.target.value)
+  }
+  const onNDaysFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQueryNDays(event.target.value)
+  }
+  const onButtonClick = () => {
+    fetchStockData(querySymbol, queryNDays)
+    .then(response => {
+      if (response) {
+        setSymbolData(response)
+      }
+    })
   }
   return (
     <div className={styles.container}>
@@ -31,13 +47,30 @@ const Home: NextPage = () => {
           <div className={styles.card}>
             <Grid container spacing={2} direction="column" alignItems="center">
               <Grid item xs={12}>
-               <TextField required id="query-symbol-input-field" data-testid="query-symbol-input-field" inputProps={{ "aria-label": "query-symbol-input-field" }} value={querySymbol} onChange={onFieldChange}/>
+               <TextField required id="query-symbol-input-field" data-testid="query-symbol-input-field" inputProps={{ "aria-label": "query-symbol-input-field" }} value={querySymbol} onChange={onSymbolFieldChange} label="Symbol"/>
+              </Grid>
+              <Grid item xs={12}>
+               <Input required type="number" id="ndays-input-field" data-testid="ndays-input-field" inputProps={{ "aria-label": "ndays-input-field" }} value={queryNDays} onChange={onNDaysFieldChange} label="Number of Days"/>
               </Grid>
               <Grid>
-                <Button aria-label="submit-query-button" variant="contained">Submit</Button>
+                <Button aria-label="submit-query-button" variant="contained" onClick={onButtonClick}>Submit</Button>
               </Grid>
             </Grid>
           </div>
+
+          {symbolData && !symbolData.errorMessage ? <div className={styles.card} data-testid="queried-results">
+            <Grid container spacing={2} direction="column" alignItems="center">
+              <Grid item xs={12}>
+               <p data-testid="queried-results-symbol">Symbol: {symbolData.symbol}</p>
+              </Grid>
+              <Grid item xs={12}>
+               <p data-testid="queried-results-data">Closing Value for the last N Days: {symbolData.data.join(', ')}</p>
+              </Grid>
+              <Grid item xs={12}>
+               <p data-testid="queried-results-average">Average: {symbolData.average}</p>
+              </Grid>                            
+            </Grid>
+          </div> : null}
         </div>
       </main>
     </div>
