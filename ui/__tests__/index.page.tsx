@@ -1,19 +1,9 @@
 import Home from "../pages"
-import type { SymbolData } from "../types"
-import { render, screen, act, waitFor } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import axios from "axios"
 
-// API Mocking Setup
-jest.mock("axios")
-const mockSymbolData :SymbolData = {
-    symbol: "AAPL",
-    data: [1.00, 2.00, 3.00],
-    average: 2.00,
-    errorMessage: ""
-}
-axios.get = jest.fn().mockResolvedValue(mockSymbolData)
 
+jest.mock("../pages/api/index")
 
 describe("tests the index 'Home' page", () => {
     beforeEach(() => {

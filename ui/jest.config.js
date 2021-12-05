@@ -14,6 +14,8 @@ module.exports = {
 
     // Handle module aliases
     '^@/components/(.*)$': '<rootDir>/components/$1',
+
+    "axios": "<rootDir>/__mocks__/axios.js"
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
