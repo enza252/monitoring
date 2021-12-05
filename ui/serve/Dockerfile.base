@@ -1,0 +1,7 @@
+FROM nginx:latest
+RUN apt update \
+ && apt-get install -y nodejs \
+ npm
+RUN npm install -g yarn \
+    && yarn global add pm2
+CMD ["nginx", "-g", "daemon off;"]

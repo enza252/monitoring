@@ -28,7 +28,7 @@
   flex-grow: 1;
 }
 
-.title a {
+.title {
   color: #0070f3;
   text-decoration: none;
 }
@@ -54,6 +54,17 @@
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.description a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.description a:hover,
+.description a:focus,
+.description a:active {
+  text-decoration: underline;
 }
 
 .code {
@@ -83,6 +94,7 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  height: 300px;
 }
 
 .card:hover,

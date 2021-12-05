@@ -2,24 +2,32 @@
   "name": "ui",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@mui/material": "^5.2.1",
+    "@material-ui/core": "^4.12.3",
+    "@testing-library/react": "^12.1.2",
+    "axios": "^0.24.0",
     "jest": "^27.3.1",
     "next": "12.0.4",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-testing-library": "^8.0.1"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.1",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.0.3",
     "@types/node": "16.11.10",
     "@types/react": "17.0.37",
+    "@types/user-event": "^4.1.1",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
+    "ts-jest": "^27.0.7",
     "typescript": "4.5.2"
   }
 }
