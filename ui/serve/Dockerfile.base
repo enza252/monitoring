@@ -1,8 +1,6 @@
 FROM nginx:latest
 RUN apt update \
- && apt-get install -y certbot \
- python3-certbot-nginx \
- nodejs \
+ && apt-get install -y nodejs \
  npm
 RUN npm install -g yarn \
     && yarn global add pm2
