@@ -1,4 +1,9 @@
 FROM nginx:latest
 RUN apt update \
- && apt-get install -y certbot python3-certbot-nginx yarn
+ && apt-get install -y certbot \
+ python3-certbot-nginx \
+ nodejs \
+ npm
+RUN npm install -g yarn \
+    && yarn global add pm2
 CMD ["nginx", "-g", "daemon off;"]
