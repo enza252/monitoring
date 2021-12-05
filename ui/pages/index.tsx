@@ -3,7 +3,7 @@ import type { SymbolData } from "../types"
 
 import { useState } from "react"
 import Head from "next/head"
-import { TextField, Input, Button, Grid } from "@material-ui/core"
+import { TextField, Input, Button, Grid, Divider } from "@material-ui/core"
 
 import styles from "../styles/Home.module.css"
 import { fetchStockData } from "./api"
@@ -50,7 +50,10 @@ const Home: NextPage = () => {
                <TextField required id="query-symbol-input-field" data-testid="query-symbol-input-field" inputProps={{ "aria-label": "query-symbol-input-field" }} value={querySymbol} onChange={onSymbolFieldChange} label="Symbol"/>
               </Grid>
               <Grid item xs={12}>
-               <Input required type="number" id="ndays-input-field" data-testid="ndays-input-field" inputProps={{ "aria-label": "ndays-input-field" }} value={queryNDays} onChange={onNDaysFieldChange} label="Number of Days"/>
+               <Input required type="number" id="ndays-input-field" data-testid="ndays-input-field" inputProps={{ "aria-label": "ndays-input-field" }} value={queryNDays} onChange={onNDaysFieldChange} />
+              </Grid>
+              <Grid item xs={12}>
+               <Divider variant="middle" flexItem/>
               </Grid>
               <Grid>
                 <Button aria-label="submit-query-button" variant="contained" onClick={onButtonClick}>Submit</Button>
