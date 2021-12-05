@@ -3,3 +3,4 @@
 # This is just a small app so no expectation of versioning etc
 mvn clean install
 docker build . -t monitoringapi:0.0.1
+
